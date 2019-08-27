@@ -6,11 +6,11 @@ import "./styles.scss";
 
 const ProtectedRoute = ({component: Component, ...rest}) => {
 	//build props variable
-	return <Route {...propsWithoutComponent} render={props => {
+	return <Route render={props => {
 		if (localStorage.getItem('token')) {
-			return <Component {...props} />;
+			return <BubblePage {...props} />;
 		} else {
-			<Redirect to="/" />
+			// <Redirect to="/" />
 		}
 	}}/>;
 };
@@ -28,12 +28,10 @@ const ProtectedBubblePage = protectRoute(BubblePage);
 function App() {
   const [colorList, setColorList] = useState([]);
   return (
-    <Router>
       <div className="App">
         <Route exact path="/" component={Login} />
-        <PrivateRoute exact path="/bubblepage" component={ProtectedBubblePage} />
+        <ProtectedRoute exact path="/bubblepage" component={ProtectedBubblePage} />
       </div>
-    </Router>
   );
 }
 
